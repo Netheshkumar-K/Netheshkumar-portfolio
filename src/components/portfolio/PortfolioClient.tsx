@@ -42,6 +42,7 @@ type PortfolioProps = {
     technologies: string | null;
     liveDemoUrl: string | null;
     githubUrl: string | null;
+    imageUrl: string | null;
   }>;
   testimonials: Array<{
     id: string;
