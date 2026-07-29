@@ -31,12 +31,20 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials");
         }
-        const user = await prisma.user.findUnique({
+
+        // Support login by email OR username (name field)
+        let user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
 
-        // For first time setup: if no user exists, let's create an admin account on the fly.
-        // IN PRODUCTION THIS IS DANGEROUS! Remove this after first login.
+        // If not found by email, try matching name (username login)
+        if (!user) {
+          user = await prisma.user.findFirst({
+            where: { name: credentials.email },
+          });
+        }
+
+        // Bootstrap: if no user at all, create first admin
         if (!user) {
           const count = await prisma.user.count();
           if (count === 0) {
@@ -44,7 +52,7 @@ export const authOptions: NextAuthOptions = {
             const newUser = await prisma.user.create({
               data: {
                 email: credentials.email,
-                name: "Admin",
+                name: credentials.email,
                 password: hashedPassword,
                 role: "ADMIN",
               },
