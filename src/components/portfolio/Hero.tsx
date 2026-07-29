@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { 
   Rocket, 
@@ -25,14 +25,12 @@ export default function Hero({ settings, roles, socials }: HeroProps) {
   const [typingSpeed, setTypingSpeed] = useState(120);
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
-  const roleTexts = useMemo(() => 
-    roles.length > 0 ? roles.map(r => r.text) : [
-      "<Software Developer/>",
-      "<Full Stack Engineer/>",
-      "<AI/ML Specialist/>",
-      "<UI/UX Creator/>"
-    ]
-  , [roles]);
+  const roleTexts = roles.length > 0 ? roles.map(r => r.text) : [
+    "<Software Developer/>",
+    "<Full Stack Engineer/>",
+    "<AI/ML Specialist/>",
+    "<UI/UX Creator/>"
+  ];
 
   useEffect(() => {
     const handleTyping = () => {

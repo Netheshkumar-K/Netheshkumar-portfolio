@@ -1,36 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useCallback, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [tapCount, setTapCount] = useState(0);
-  const tapTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleLogoTap = useCallback(() => {
-    setTapCount(prev => {
-      const next = prev + 1;
-      // Reset timer on each tap
-      if (tapTimerRef.current) clearTimeout(tapTimerRef.current);
-      tapTimerRef.current = setTimeout(() => setTapCount(0), 2000);
-
-      if (next >= 5) {
-        clearTimeout(tapTimerRef.current!);
-        setTapCount(0);
-        router.push("/admin/login");
-      }
-      return next >= 5 ? 0 : next;
-    });
-  }, [router]);
 
   return (
     <header
@@ -41,8 +23,8 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        {/* Brand Logo — tap 5 times quickly to access Admin */}
-        <Link href="/" className="flex items-center space-x-3 group" onClick={handleLogoTap}>
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center space-x-3 group">
           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-600 to-teal-400 p-[2px] shadow-[0_0_15px_rgba(6,182,212,0.6)] group-hover:shadow-[0_0_25px_rgba(6,182,212,0.9)] transition-all duration-300">
             <div className="w-full h-full bg-[#071952] rounded-full flex items-center justify-center font-extrabold text-cyan-400 text-lg">
               N
@@ -100,5 +82,4 @@ export default function Navbar() {
     </header>
   );
 }
-
 

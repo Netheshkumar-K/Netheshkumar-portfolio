@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import { useState, useRef, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { Star, Send, ExternalLink, Code2, CheckCircle2 } from "lucide-react";
 import { sendMessage } from "@/app/actions/messages";
 import Hero from "./Hero";
@@ -61,27 +60,13 @@ type PortfolioProps = {
   socials: Array<{ id: string; platform: string; url: string; icon: string | null }>;
 };
 
-// Admin credentials (obfuscated — checked client-side only as a UX convenience)
-const ADMIN_USER = "Netheshkumar.k";
-const ADMIN_PASS = "9994526584";
-
 export default function PortfolioClient({ education, experience, projects, testimonials, skills, settings, roles, socials }: PortfolioProps) {
-  const router = useRouter();
   const [formState, setFormState] = useState({ name: "", email: "", subject: "", content: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // --- Hidden Admin Method 2: Send Message form — Name = username, Subject = password
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Secret: if name matches admin username AND subject matches admin password, go to admin
-    if (
-      formState.name.trim() === ADMIN_USER &&
-      formState.subject.trim() === ADMIN_PASS
-    ) {
-      router.push("/admin");
-      return;
-    }
     setIsSubmitting(true);
     const res = await sendMessage(formState);
     if (res.success) {
@@ -90,20 +75,6 @@ export default function PortfolioClient({ education, experience, projects, testi
     }
     setIsSubmitting(false);
   };
-
-  // --- Hidden Admin Method 3: Long-press on the Send button (1.5 seconds)
-  const longPressTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const handleSendMouseDown = useCallback(() => {
-    longPressTimerRef.current = setTimeout(() => {
-      router.push("/admin/login");
-    }, 1500);
-  }, [router]);
-  const handleSendMouseUp = useCallback(() => {
-    if (longPressTimerRef.current) {
-      clearTimeout(longPressTimerRef.current);
-      longPressTimerRef.current = null;
-    }
-  }, []);
 
   return (
     <div className="relative z-10">
@@ -376,16 +347,7 @@ export default function PortfolioClient({ education, experience, projects, testi
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                onMouseDown={handleSendMouseDown}
-                onMouseUp={handleSendMouseUp}
-                onMouseLeave={handleSendMouseUp}
-                onTouchStart={handleSendMouseDown}
-                onTouchEnd={handleSendMouseUp}
-                className="w-full btn-glow py-3.5 flex items-center justify-center space-x-2 select-none"
-              >
+              <button type="submit" disabled={isSubmitting} className="w-full btn-glow py-3.5 flex items-center justify-center space-x-2">
                 <Send size={18} />
                 <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
               </button>
