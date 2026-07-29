@@ -1,18 +1,16 @@
 import { NextAuthOptions, DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import pg from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
 import bcrypt from "bcryptjs";
-import path from "path";
 
-// libsql requires an absolute file: URL for local SQLite files
-const dbUrl = process.env.DATABASE_URL?.startsWith("file:")
-  ? `file:${path.resolve(process.cwd(), process.env.DATABASE_URL.replace(/^file:/, ""))}`
-  : `file:${path.resolve(process.cwd(), "dev.db")}`;
+const connectionString = process.env.DATABASE_URL;
 
-const adapter = new PrismaLibSql({
-  url: dbUrl,
-});
+// If DATABASE_URL is somehow missing during build time without it, we shouldn't instantiate the pool.
+// But Next.js build might execute this, so we handle it gracefully if missing.
+const pool = new pg.Pool({ connectionString });
+const adapter = new PrismaPg(pool);
 
 // Initialize a single instance of PrismaClient
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
