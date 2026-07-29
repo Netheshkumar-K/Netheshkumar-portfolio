@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Education {
+  id             String   @id @default(cuid())
+  degree         String
+  department     String
+  collegeName    String
+  university     String
+  startYear      String
+  endYear        String?
+  cgpa           String?
+  status         String
+  description    String?
+  collegeLogo    String?
+  certificateUrl String?
+  marksheetUrl   String?
+  isVisible      Boolean  @default(true)
+  order          Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Experience {
+  id                  String   @id @default(cuid())
+  companyName         String
+  companyLogo         String?
+  designation         String
+  employmentType      String
+  location            String?
+  startDate           String
+  endDate             String?
+  currentlyWorking    Boolean  @default(false)
+  description         String?
+  technologiesUsed    String?  // Stored as JSON string or comma-separated
+  skillsUsed          String?  // Stored as JSON string or comma-separated
+  achievements        String?
+  certificateUrl      String?
+  offerLetterUrl      String?
+  experienceLetterUrl String?
+  isVisible           Boolean  @default(true)
+  order               Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Project {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  imageUrl     String?
+  videoUrl     String?
+  technologies String?  // Comma separated
+  liveDemoUrl  String?
+  githubUrl    String?
+  isVisible    Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Testimonial {
+  id           String   @id @default(cuid())
+  name         String
+  profilePhoto String?
+  company      String?
+  designation  String?
+  rating       Int      @default(5)
+  feedback     String
+  date         String?
+  isFeatured   Boolean  @default(false)
+  status       String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Skill {
+  id         String   @id @default(cuid())
+  name       String
+  iconUrl    String?
+  percentage Int      @default(0)
+  isVisible  Boolean  @default(true)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  content   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SiteSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SocialMedia {
+  id        String   @id @default(cuid())
+  platform  String
+  url       String
+  icon      String?
+  isVisible Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Role {
+  id        String   @id @default(cuid())
+  text      String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ResumeRequest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  purpose   String
+  message   String?
+  createdAt DateTime @default(now())
+}
+
