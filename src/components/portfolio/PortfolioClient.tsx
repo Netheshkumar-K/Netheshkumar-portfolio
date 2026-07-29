@@ -251,7 +251,7 @@ export default function PortfolioClient({ education, experience, projects, testi
                     <h3 className="text-xl font-bold text-[#37B7C3] leading-tight pr-4">{proj.title}</h3>
                     {(proj.liveDemoUrl || proj.githubUrl) && (
                       <a 
-                        href={proj.liveDemoUrl || proj.githubUrl} 
+                        href={proj.liveDemoUrl || proj.githubUrl || undefined} 
                         target="_blank" 
                         rel="noreferrer" 
                         className="flex-shrink-0 px-4 py-1.5 rounded-full bg-[#37B7C3] text-[#071933] text-sm font-semibold hover:bg-[#2da0ac] transition-colors"
