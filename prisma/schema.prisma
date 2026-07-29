@@ -146,3 +146,33 @@ model ResumeRequest {
   createdAt DateTime @default(now())
 }
 
+model Achievement {
+  id           String   @id @default(cuid())
+  title        String
+  type         String   // HACKATHON | COMPETITION | AWARD | CODING_BADGE
+  description  String?
+  organizer    String?
+  date         String?
+  position     String?  // e.g. "1st Place", "Finalist"
+  badgeUrl     String?  // image URL for badge/trophy
+  certificateUrl String?
+  isVisible    Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Certification {
+  id            String   @id @default(cuid())
+  courseName    String
+  organization  String
+  issueDate     String
+  expiryDate    String?
+  certificateUrl String?
+  credentialId  String?
+  credentialUrl String?
+  isVisible     Boolean  @default(true)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

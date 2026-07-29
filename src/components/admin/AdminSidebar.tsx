@@ -16,7 +16,9 @@ import {
   ExternalLink,
   Share2,
   List,
-  FileText
+  FileText,
+  Trophy,
+  BadgeCheck
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -29,6 +31,8 @@ const navItems = [
   { name: "Education", href: "/admin/education", icon: GraduationCap },
   { name: "Experience", href: "/admin/experience", icon: Briefcase },
   { name: "Projects", href: "/admin/projects", icon: FolderGit2 },
+  { name: "Achievements", href: "/admin/achievements", icon: Trophy },
+  { name: "Certifications", href: "/admin/certifications", icon: BadgeCheck },
   { name: "Testimonials", href: "/admin/testimonials", icon: Star },
   { name: "Messages", href: "/admin/messages", icon: MessageSquare },
   { name: "Resume Downloads", href: "/admin/resume-requests", icon: FileText },

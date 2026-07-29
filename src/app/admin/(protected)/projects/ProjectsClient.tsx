@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Plus, Edit2, Trash2, Eye, EyeOff, ExternalLink, Code2 } from "lucide-react";
 import { deleteProject, toggleProjectVisibility, addProject, updateProject } from "@/app/actions/projects";
+import MediaInput from "@/components/admin/MediaInput";
 
 type Project = {
   id: string;
@@ -20,6 +21,7 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [editingData, setEditingData] = useState<Project | null>(null);
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleToggle = async (id: string, currentStatus: boolean) => {
     await toggleProjectVisibility(id, !currentStatus);
@@ -33,11 +35,13 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
 
   const openAddModal = () => {
     setEditingData(null);
+    setImageUrl("");
     setIsModalOpen(true);
   };
 
   const openEditModal = (proj: Project) => {
     setEditingData(proj);
+    setImageUrl(proj.imageUrl || "");
     setIsModalOpen(true);
   };
 
@@ -50,7 +54,7 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
     const payload = {
       title: rawData.title as string,
       description: rawData.description as string,
-      imageUrl: (rawData.imageUrl as string) || undefined,
+      imageUrl: imageUrl || undefined,
       videoUrl: (rawData.videoUrl as string) || undefined,
       technologies: (rawData.technologies as string) || undefined,
       liveDemoUrl: (rawData.liveDemoUrl as string) || undefined,
@@ -115,7 +119,7 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
                 {proj.liveDemoUrl && (
                   <a href={proj.liveDemoUrl} target="_blank" rel="noreferrer" className="flex items-center space-x-1 hover:text-[#37B7C3] transition-colors">
                     <ExternalLink size={14} />
-                    <span>Live Demo</span>
+                    <span>Visit Link</span>
                   </a>
                 )}
                 {proj.githubUrl && (
@@ -153,17 +157,23 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
                   <label className="block text-sm font-medium mb-1">Technologies (comma-separated)</label>
                   <input name="technologies" defaultValue={editingData?.technologies || ""} className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#37B7C3]" placeholder="Next.js, Tailwind, Three.js" />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1">Image URL</label>
-                  <input name="imageUrl" defaultValue={editingData?.imageUrl || ""} className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#37B7C3]" />
+                
+                <div className="col-span-1 md:col-span-2">
+                  <MediaInput 
+                    label="Project Image" 
+                    value={imageUrl} 
+                    onChange={setImageUrl} 
+                    placeholder="Upload or enter URL..."
+                  />
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium mb-1">Live Demo URL</label>
-                  <input name="liveDemoUrl" defaultValue={editingData?.liveDemoUrl || ""} className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#37B7C3]" />
+                  <label className="block text-sm font-medium mb-1">Visit Link URL (Live Demo)</label>
+                  <input name="liveDemoUrl" defaultValue={editingData?.liveDemoUrl || ""} className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#37B7C3]" placeholder="https://..." />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1">GitHub URL</label>
-                  <input name="githubUrl" defaultValue={editingData?.githubUrl || ""} className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#37B7C3]" />
+                  <input name="githubUrl" defaultValue={editingData?.githubUrl || ""} className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-[#37B7C3]" placeholder="https://github.com/..." />
                 </div>
               </div>
 

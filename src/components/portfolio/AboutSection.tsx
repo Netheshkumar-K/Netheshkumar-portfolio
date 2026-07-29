@@ -26,20 +26,14 @@ export default function AboutSection({ settings }: AboutProps) {
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
 
   const infoDetails = [
-    { icon: User, label: "Name", value: settings["ABOUT_NAME"] || "Netheshkumar.K" },
-    { icon: Briefcase, label: "Role", value: settings["ABOUT_ROLE"] || "Software Developer" },
-    { icon: MapPin, label: "Location", value: settings["ABOUT_LOCATION"] || "Tamil Nadu, India" },
-    { icon: Mail, label: "Email", value: settings["ABOUT_EMAIL"] || "nethesh@email.com" },
-    { icon: Globe, label: "Website", value: settings["ABOUT_WEBSITE"] || "netheshkumar.dev" },
-    { icon: Calendar, label: "Experience", value: settings["ABOUT_EXPERIENCE"] || "3+ Years" },
-  ];
+    { icon: User, label: "Name", value: settings["ABOUT_NAME"] },
+    { icon: Briefcase, label: "Role", value: settings["ABOUT_ROLE"] },
+    { icon: MapPin, label: "Location", value: settings["ABOUT_LOCATION"] },
+    { icon: Mail, label: "Email", value: settings["ABOUT_EMAIL"] },
+    { icon: Globe, label: "Website", value: settings["ABOUT_WEBSITE"] },
+    { icon: Calendar, label: "Experience", value: settings["ABOUT_EXPERIENCE"] },
+  ].filter((item) => item.value && item.value.trim() !== "");
 
-  const highlights = [
-    { icon: Code, title: "Clean Code" },
-    { icon: Zap, title: "Fast Delivery" },
-    { icon: ShieldCheck, title: "Reliable" },
-    { icon: Lightbulb, title: "Creative" },
-  ];
 
   return (
     <section id="about" className="py-20 relative z-10 max-w-6xl mx-auto px-6">
@@ -107,23 +101,7 @@ export default function AboutSection({ settings }: AboutProps) {
             </div>
           </div>
 
-          {/* 4 Feature Cards Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {highlights.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div 
-                  key={idx}
-                  className="p-4 rounded-xl bg-[#091b3e]/60 border border-cyan-500/20 backdrop-blur-md flex flex-col items-center justify-center text-center space-y-2 hover:border-cyan-400/50 hover:bg-[#091b3e]/90 transition-all duration-300 group"
-                >
-                  <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400 group-hover:scale-110 group-hover:bg-cyan-500/20 transition-all">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <span className="text-xs font-semibold text-slate-200">{item.title}</span>
-                </div>
-              );
-            })}
-          </div>
+
         </motion.div>
 
         {/* Right Column: Bio & Info Items Grid */}
@@ -134,13 +112,17 @@ export default function AboutSection({ settings }: AboutProps) {
           transition={{ duration: 0.6 }}
           className="lg:col-span-7 space-y-6 pt-2"
         >
-          <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            {settings["ABOUT_HEADING"] || "I build things for the web."}
-          </h3>
+          {settings["ABOUT_HEADING"] && (
+            <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              {settings["ABOUT_HEADING"]}
+            </h3>
+          )}
 
-          <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">
-            {settings["ABOUT_BIO"] || "I'm a passionate Software Developer with over 3 years of experience in building web applications. I specialize in full-stack development, cloud solutions, and creating intuitive user interfaces that leave lasting impressions.\n\nWhen I'm not coding, you'll find me exploring new technologies, contributing to open source, and constantly pushing the boundaries of what's possible in the digital world."}
-          </div>
+          {settings["ABOUT_BIO"] && (
+            <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">
+              {settings["ABOUT_BIO"]}
+            </div>
+          )}
 
           {/* 6 Info Grid Items */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-4">

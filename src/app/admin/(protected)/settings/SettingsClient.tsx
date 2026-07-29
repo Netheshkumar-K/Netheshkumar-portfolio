@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { updateSettings } from "@/app/actions/settings";
 import MediaInput from "@/components/admin/MediaInput";
-import { Save, CheckCircle2, Home, User, FileText } from "lucide-react";
+import { Save, CheckCircle2, Home, User, FileText, Cpu } from "lucide-react";
 
 type Props = {
   initialSettings: Record<string, string>;
@@ -220,6 +220,45 @@ export default function SettingsClient({ initialSettings }: Props) {
           value={settings.ABOUT_IMAGE}
           onChange={(url) => handleChange("ABOUT_IMAGE", url)}
         />
+      </div>
+
+      {/* Skills Link Card */}
+      <div className="glass p-6 rounded-xl space-y-6">
+        <div className="flex items-center space-x-2 text-[#37B7C3]">
+          <Cpu size={20} />
+          <h2 className="text-lg font-bold text-white">Technical Proficiency Content</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-[#EBF4F6] mb-2">Heading Part 1</label>
+            <input
+              type="text"
+              value={settings.SKILLS_HEADING_1 || "Technical"}
+              onChange={(e) => handleChange("SKILLS_HEADING_1", e.target.value)}
+              className="w-full px-4 py-2 bg-black/30 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#37B7C3]"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#EBF4F6] mb-2">Heading Part 2 (Glowing)</label>
+            <input
+              type="text"
+              value={settings.SKILLS_HEADING_2 || "Proficiency"}
+              onChange={(e) => handleChange("SKILLS_HEADING_2", e.target.value)}
+              className="w-full px-4 py-2 bg-black/30 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#37B7C3]"
+            />
+          </div>
+        </div>
+        
+        <div>
+          <label className="block text-sm font-medium text-[#EBF4F6] mb-2">Subtitle</label>
+          <input
+            type="text"
+            value={settings.SKILLS_SUBTITLE || "Mastery in modern software technologies and engineering frameworks."}
+            onChange={(e) => handleChange("SKILLS_SUBTITLE", e.target.value)}
+            className="w-full px-4 py-2 bg-black/30 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#37B7C3]"
+          />
+        </div>
       </div>
 
       {/* Resume Link Card */}

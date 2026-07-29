@@ -41,6 +41,16 @@ export default async function Home() {
     orderBy: { order: "asc" }
   });
 
+  const achievements = await prisma.achievement.findMany({
+    where: { isVisible: true },
+    orderBy: { order: "asc" },
+  });
+
+  const certifications = await prisma.certification.findMany({
+    where: { isVisible: true },
+    orderBy: { order: "asc" },
+  });
+
   return (
     <main className="relative min-h-screen bg-[#06122b] text-slate-100 selection:bg-cyan-400 selection:text-slate-950 overflow-x-hidden">
       <CustomCursor />
@@ -55,6 +65,8 @@ export default async function Home() {
         settings={settings}
         roles={roles}
         socials={socials}
+        achievements={achievements}
+        certifications={certifications}
       />
     </main>
   );
