@@ -34,12 +34,12 @@ export default function MessagesClient({ initialData }: { initialData: Message[]
         initialData.map((msg) => (
           <div key={msg.id} className={`glass-card p-6 border-l-4 ${msg.isRead ? "border-l-gray-500" : "border-l-[#37B7C3]"} flex flex-col justify-between group`}>
             <div>
-              <div className="flex justify-between items-start mb-2">
+              <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2 gap-4">
                 <div>
                   <h3 className="text-lg font-bold text-[#EBF4F6]">{msg.name}</h3>
                   <p className="text-[#37B7C3] text-sm">{msg.email}</p>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-between md:justify-end space-x-2 w-full md:w-auto border-t md:border-0 border-white/10 pt-2 md:pt-0">
                   <span className="text-xs text-gray-400 mr-2">
                     {new Date(msg.createdAt).toLocaleDateString()}
                   </span>

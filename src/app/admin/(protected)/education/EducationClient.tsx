@@ -87,14 +87,14 @@ export default function EducationClient({ initialData }: { initialData: Educatio
           </div>
         ) : (
           initialData.map((edu) => (
-            <div key={edu.id} className="glass-card p-6 flex justify-between items-center group">
+            <div key={edu.id} className="glass-card p-4 md:p-6 flex flex-col md:flex-row md:justify-between items-start md:items-center gap-4 group">
               <div>
                 <h3 className="text-xl font-bold text-[#EBF4F6]">{edu.degree} in {edu.department}</h3>
                 <p className="text-[#37B7C3]">{edu.collegeName}, {edu.university}</p>
                 <p className="text-sm text-gray-400 mt-1">{edu.startYear} - {edu.endYear || "Present"} | CGPA: {edu.cgpa}</p>
               </div>
               
-              <div className="flex items-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="flex items-center space-x-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity w-full md:w-auto justify-end md:justify-start pt-2 md:pt-0 border-t md:border-t-0 border-white/10">
                 <button onClick={() => handleToggle(edu.id, edu.isVisible)} className="p-2 hover:bg-white/10 rounded-full transition-colors" title="Toggle Visibility">
                   {edu.isVisible ? <Eye size={18} className="text-[#37B7C3]" /> : <EyeOff size={18} className="text-gray-500" />}
                 </button>
@@ -112,7 +112,7 @@ export default function EducationClient({ initialData }: { initialData: Educatio
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="glass-card w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6">
+          <div className="glass-card w-full max-w-2xl max-h-[90vh] overflow-y-auto p-4 md:p-6">
             <h2 className="text-2xl font-bold mb-6 text-gradient">
               {editingData ? "Edit Education" : "Add Education"}
             </h2>

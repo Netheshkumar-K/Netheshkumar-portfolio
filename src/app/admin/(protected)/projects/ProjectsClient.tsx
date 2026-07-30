@@ -89,9 +89,9 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
           initialData.map((proj) => (
             <div key={proj.id} className="glass-card p-6 flex flex-col justify-between group">
               <div>
-                <div className="flex justify-between items-start mb-2">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2 gap-2">
                   <h3 className="text-xl font-bold text-[#EBF4F6]">{proj.title}</h3>
-                  <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center space-x-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity w-full md:w-auto justify-end">
                     <button onClick={() => handleToggle(proj.id, proj.isVisible)} className="p-1.5 hover:bg-white/10 rounded-full transition-colors" title="Toggle Visibility">
                       {proj.isVisible ? <Eye size={18} className="text-[#37B7C3]" /> : <EyeOff size={18} className="text-gray-500" />}
                     </button>
@@ -136,7 +136,7 @@ export default function ProjectsClient({ initialData }: { initialData: Project[]
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="glass-card w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6">
+          <div className="glass-card w-full max-w-2xl max-h-[90vh] overflow-y-auto p-4 md:p-6">
             <h2 className="text-2xl font-bold mb-6 text-gradient">
               {editingData ? "Edit Project" : "Add Project"}
             </h2>

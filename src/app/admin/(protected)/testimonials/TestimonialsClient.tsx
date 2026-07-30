@@ -116,7 +116,7 @@ export default function TestimonialsClient({ initialData }: { initialData: Testi
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="glass-card w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6">
+          <div className="glass-card w-full max-w-2xl max-h-[90vh] overflow-y-auto p-4 md:p-6">
             <h2 className="text-2xl font-bold mb-6 text-gradient">
               {editingData ? "Edit Testimonial" : "Add Testimonial"}
             </h2>
