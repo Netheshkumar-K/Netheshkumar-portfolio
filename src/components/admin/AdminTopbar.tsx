@@ -3,11 +3,15 @@
 import { Bell, Search, Menu } from "lucide-react";
 import Link from "next/link";
 
+import { useAdminStore } from "@/lib/store";
+
 export default function AdminTopbar({ user }: { user?: { name?: string | null } }) {
+  const toggleSidebar = useAdminStore((state) => state.toggleSidebar);
+
   return (
     <header className="h-16 border-b border-[#37B7C3]/30 bg-[#071952]/50 backdrop-blur-md flex items-center justify-between px-6 z-10">
       <div className="flex items-center">
-        <button className="md:hidden text-gray-300 hover:text-white mr-4">
+        <button onClick={toggleSidebar} className="md:hidden text-gray-300 hover:text-white mr-4">
           <Menu size={24} />
         </button>
         <div className="relative hidden md:block">

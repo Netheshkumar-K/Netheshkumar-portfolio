@@ -18,9 +18,11 @@ import {
   List,
   FileText,
   Trophy,
-  BadgeCheck
+  BadgeCheck,
+  X
 } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { useAdminStore } from "@/lib/store";
 
 const navItems = [
   { name: "Overview", href: "/admin", icon: LayoutDashboard },
@@ -40,12 +42,25 @@ const navItems = [
 
 export default function AdminSidebar() {
   const pathname = usePathname();
+  const { isSidebarOpen, setSidebarOpen } = useAdminStore();
 
   return (
-    <div className="w-64 h-full bg-[#071952] border-r border-[#37B7C3]/30 flex flex-col transition-all duration-300">
-      <div className="p-6">
-        <h2 className="text-2xl font-bold text-gradient">AI CMS</h2>
-      </div>
+    <>
+      {/* Mobile overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 h-full bg-[#071952] border-r border-[#37B7C3]/30 flex flex-col transition-transform duration-300 transform md:relative md:translate-x-0 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="p-6 flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-gradient">AI CMS</h2>
+          <button className="md:hidden text-gray-400 hover:text-white" onClick={() => setSidebarOpen(false)}>
+            <X size={24} />
+          </button>
+        </div>
 
       <nav className="flex-1 px-4 space-y-2 overflow-y-auto custom-scrollbar">
         {navItems.map((item) => {
@@ -55,6 +70,7 @@ export default function AdminSidebar() {
             <Link
               key={item.name}
               href={item.href}
+              onClick={() => setSidebarOpen(false)}
               className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
                 isActive
                   ? "bg-[#37B7C3]/20 text-[#37B7C3] border border-[#37B7C3]/50 shadow-[0_0_10px_rgba(55,183,195,0.2)]"
@@ -85,5 +101,6 @@ export default function AdminSidebar() {
         </button>
       </div>
     </div>
+    </>
   );
 }
