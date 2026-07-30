@@ -27,8 +27,7 @@ export default function ResumeDownloadModal({ isOpen, onClose }: ModalProps) {
     setLoading(false);
   };
 
-  const handleDownload = () => {
-    window.open(resumeUrl, "_blank");
+  const handleDownloadComplete = () => {
     onClose();
     setTimeout(() => {
       setSuccess(false);
@@ -62,13 +61,17 @@ export default function ResumeDownloadModal({ isOpen, onClose }: ModalProps) {
                 <CheckCircle2 size={56} className="text-cyan-400 mx-auto animate-bounce" />
                 <h3 className="text-2xl font-bold text-white">Thank You!</h3>
                 <p className="text-slate-300 mb-6">Your request has been sent.</p>
-                <button
-                  onClick={handleDownload}
+                <a
+                  href={resumeUrl && resumeUrl !== "#" ? resumeUrl : "/resume.pdf"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download="Resume.pdf"
+                  onClick={handleDownloadComplete}
                   className="px-8 py-3 rounded-full bg-cyan-500 text-slate-900 font-bold hover:bg-cyan-400 transition-colors inline-flex items-center space-x-2"
                 >
                   <Download size={18} />
                   <span>Download Resume Now</span>
-                </button>
+                </a>
               </div>
             ) : (
               <div>
