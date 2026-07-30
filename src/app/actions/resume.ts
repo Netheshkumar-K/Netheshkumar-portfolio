@@ -31,22 +31,26 @@ export async function requestResume(data: {
 
     // 3. Send Email Notification
     if (process.env.EMAIL_USER && process.env.EMAIL_APP_PASSWORD) {
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_APP_PASSWORD,
-        },
-      });
+      try {
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_APP_PASSWORD,
+          },
+        });
 
-      const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: "netheshkumark@gmail.com",
-        subject: `New Resume Download: ${data.name}`,
-        text: `You have a new resume download request.\n\nName: ${data.name}\nEmail: ${data.email}\nPurpose: ${data.purpose}\nMessage: ${data.message || 'N/A'}\n\nThey have been provided the resume link automatically.`,
-      };
+        const mailOptions = {
+          from: process.env.EMAIL_USER,
+          to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+          subject: `New Resume Download: ${data.name}`,
+          text: `You have a new resume download request.\n\nName: ${data.name}\nEmail: ${data.email}\nPurpose: ${data.purpose}\nMessage: ${data.message || 'N/A'}\n\nThey have been provided the resume link automatically.`,
+        };
 
-      await transporter.sendMail(mailOptions);
+        await transporter.sendMail(mailOptions);
+      } catch (emailErr) {
+        console.error("Failed to send email notification for resume:", emailErr);
+      }
     }
 
     return { success: true, resumeUrl };

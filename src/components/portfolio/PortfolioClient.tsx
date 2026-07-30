@@ -247,8 +247,8 @@ export default function PortfolioClient({ education, experience, projects, testi
 
                 {/* Project Content */}
                 <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-[#37B7C3] leading-tight pr-4">{proj.title}</h3>
+                  <div className="flex justify-between items-start mb-4 gap-4">
+                    <h3 className="text-xl font-bold text-[#37B7C3] leading-tight flex-1">{proj.title}</h3>
                     {(proj.liveDemoUrl || proj.githubUrl) && (
                       <a 
                         href={proj.liveDemoUrl || proj.githubUrl || undefined} 

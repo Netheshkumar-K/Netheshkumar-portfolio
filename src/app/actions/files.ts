@@ -34,10 +34,14 @@ export async function uploadFile(formData: FormData) {
       fs.mkdirSync(publicDir, { recursive: true });
     }
 
-    const filePath = path.join(publicDir, file.name);
+    const ext = path.extname(file.name);
+    const baseName = path.basename(file.name, ext);
+    const uniqueFileName = `${baseName}-${Date.now()}${ext}`;
+
+    const filePath = path.join(publicDir, uniqueFileName);
     fs.writeFileSync(filePath, buffer);
     
-    return { success: true, fileName: file.name, url: `/${file.name}` };
+    return { success: true, fileName: uniqueFileName, url: `/${uniqueFileName}` };
   } catch (error) {
     console.error("Failed to upload file", error);
     return { success: false, error: "Failed to upload file" };

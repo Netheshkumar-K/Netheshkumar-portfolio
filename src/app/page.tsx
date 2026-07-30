@@ -5,6 +5,8 @@ import CustomCursor from "@/components/portfolio/CustomCursor";
 import AuroraBackground from "@/components/portfolio/AuroraBackground";
 import { getSettings } from "@/app/actions/settings";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const education = await prisma.education.findMany({
     where: { isVisible: true },

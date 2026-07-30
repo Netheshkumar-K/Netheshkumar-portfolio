@@ -136,7 +136,7 @@ export default function Hero({ settings, roles, socials }: HeroProps) {
           <div className="absolute -inset-2 bg-cyan-500/20 rounded-full blur-md opacity-75 group-hover:opacity-100 transition duration-1000" />
           
           {/* Outer Border Frame with Smooth Rotation (Fixed the artifact issue) */}
-          <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden p-1 shadow-[0_0_30px_rgba(6,182,212,0.5)]">
+          <div className="relative w-44 h-44 md:w-56 md:h-56 rounded-full overflow-hidden p-1 shadow-[0_0_30px_rgba(6,182,212,0.5)]">
             {/* Spinning gradient layer */}
             <div className="absolute inset-[-50%] animate-spin-slow bg-[conic-gradient(from_0deg,transparent_0deg,#06b6d4_90deg,transparent_180deg,#3b82f6_270deg,transparent_360deg)]" />
             
@@ -145,7 +145,7 @@ export default function Hero({ settings, roles, socials }: HeroProps) {
                 src={settings["HERO_IMAGE"] || "/avatar.png"}
                 alt="Profile"
                 fill
-                sizes="(max-width: 768px) 144px, 176px"
+                sizes="(max-width: 768px) 176px, 224px"
                 priority
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
               />
@@ -218,7 +218,7 @@ export default function Hero({ settings, roles, socials }: HeroProps) {
             className="px-8 py-3.5 rounded-full bg-slate-900/80 border border-cyan-500/40 text-cyan-300 font-semibold text-base backdrop-blur-md hover:bg-cyan-500/10 hover:border-cyan-400 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center space-x-2.5 shadow-[0_0_15px_rgba(6,182,212,0.15)]"
           >
             <Download className="w-5 h-5 text-cyan-400" />
-            <span>Download CV</span>
+            <span>Download Resume</span>
           </button>
         </motion.div>
 
@@ -227,7 +227,7 @@ export default function Hero({ settings, roles, socials }: HeroProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="flex items-center justify-center space-x-4"
+          className="flex flex-wrap items-center justify-center gap-4"
         >
           {socials.map((social) => (
             <a

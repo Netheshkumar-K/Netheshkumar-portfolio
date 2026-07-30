@@ -149,7 +149,7 @@ export default function AboutSection({ settings }: AboutProps) {
               className="px-7 py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-cyan-500 text-slate-950 font-bold text-sm shadow-[0_0_20px_rgba(6,182,212,0.5)] hover:shadow-[0_0_30px_rgba(6,182,212,0.8)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center space-x-2"
             >
               <Download className="w-4 h-4" />
-              <span>Download CV</span>
+              <span>Download Resume</span>
             </button>
             <a
               href="#contact"
